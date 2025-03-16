@@ -1,44 +1,59 @@
 <html>
+
 <head>
     <title>Tabela Verdade</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="header">
-    <div class="innerHeader">
-        <div class="titleContainer">
-            <h1 class="title">Calculadora logica</h1>
+    <header class="header">
+        <div class="innerHeader">
+            <div class="titleContainer">
+                <h1 class="title">Calculadora Lógica</h1>
+            </div>
+
+            <ul class="navigation">
+                <a class="darkmodecheckbox">
+                    <input type="checkbox" id="darkcheckbox">
+                    <label for="darkcheckbox">Tema Escuro</label>
+                </a>
+
+                <!-- Botão About Us -->
+                <a class="about-us-button">
+                    <button id="aboutUsBtn">About Us</button>
+                </a>
+            </ul>
         </div>
+    </header>
 
-        <div class="darkmodecheckbox">
-            <input type="checkbox" id="darkcheckbox">
-            <label for="darkcheckbox">Tema Escuro</label>
+    <div class="calculator">
+        <div class="display">
+            <textarea type="text" id="elementos" placeholder="A, B, C" rows="1" cols="38"></textarea>
+            <div class="inner-display">
+
+            </div>
+        </div>
+        <div class="menu">
+
+        </div>
+        <div class="content">
+
+        </div>
+        <div class="footer">
+            <div id="tabela"></div>
         </div>
     </div>
-</header>
 
-<h1>Tabela Verdade</h1>
-<label for="elementos">Coloca as letras (ex: A, B, C): </label>
+    
+    <div id="aboutUsMessage"
+        style="display:none; padding: 20px; border: 1px solid #ccc; margin-top: 20px; background-color: #f9f9f9; border-radius: 5px;">
+        <h2>Sobre Nós</h2>
+        <p>Trabalho realizado por Luis Augusto, Gustavo Chagas, Theo Passos, Luis Eduardo e Cadu Kaidou, com o objetivo
+            de criar uma calculadora que realize operações de matemática discreta.</p>
+    </div>
 
-<div class="calculator">
-    <div class="display">
-        <textarea type="text" id="elementos" placeholder="A, B, C" rows="10" cols="38"></textarea>
-        <div class="inner-display">
-            
-        </div>
-    </div>
-    <div class="menu">
-
-    </div>
-    <div class="content">
-        
-    </div>
-    <div class="footer">
-        <div id="tabela"></div>
-    </div>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>

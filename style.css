@@ -4,6 +4,10 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    background: #f5f5f5; /* cor branca com um toque de cinza */
+    color: black;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .dark-mode {
@@ -39,14 +43,10 @@ body {
     display: table-cell;
     vertical-align: middle;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .darkmodecheckbox {
-    height: 100%;
-    display: table-cell;
-    float: right;
-    vertical-align: middle;
     color: white;
 }
 
@@ -54,6 +54,7 @@ body {
     width: auto;
     height: auto;
     min-height: 400px;
+    margin-top: 100px;
     display: grid;
     grid-template-areas: 
         "display display"
@@ -61,33 +62,45 @@ body {
         "footer footer";
     grid-template-columns: 4fr 2fr;
     grid-template-rows: 0.5fr fit-content 0.5fr;
-    gap: 5px;
-    background-color: black;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.8); 
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    transition: background-color 0.5s;
+}
+
+.dark-mode .calculator {
+    background: rgba(0, 0, 0, 0.8); /* fundo preto no modo escuro */
+    border: 2px solid gray; /* bordas cinzas no modo escuro */
 }
 
 .calculator > div.display {
     grid-area: display;
-    background-color: gray;
+    background-color: white;
 }
 
 .calculator > div.menu {
     grid-area: menu;
     display: grid;
     height: fit-content;
+    margin-top: 0px;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(7, 1fr);
-    gap: 5px;
-    background-color: gainsboro;
+    gap: 10px;
+    background-color: white;
 }
 
 .calculator > div.content {
     grid-area: content;
     display: grid;
     height: fit-content;
+    margin-top: 0px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(7, 1fr);
-    gap: 5px;
-    background-color: gainsboro;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 1);
 }
 
 .calculator > div.footer {
@@ -95,21 +108,71 @@ body {
     background-color: white;
 }
 
+.display {
+    display: flex;
+}
+
 .display textarea {
-    resize: vertical;
-    width: 330px;
+    resize: none;
+    width: 100%;
+    height: 100px;
+    padding-left: 15px;
+    text-align: left;
+    line-height: 6;
+    vertical-align: middle;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .content button {
     width: 50px;
     height: 50px;
     font-size: 16px;
+    position: relative;
 }
 
 .menu button {
     width: 50px;
     height: 50px;
     font-size: 20px;
+    position: relative;
+}
+
+/* part of the code thanks to Kan academy */
+button .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    z-index: 999;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+button .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+    z-index: 999;
+}
+
+.equals {
+    background-color: #4CAF50;
 }
 
 #tabela table {
@@ -134,6 +197,123 @@ body {
 .calculator button {
     border-radius: 50%;
     padding: 0px;
-    box-shadow: 0px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 5px rgba(0, 0, 0, 0.2);
     border: none;
+    cursor: pointer;
 }
+
+.calculator button:hover .tooltiptext{
+    visibility: visible;
+    animation: button_hover 0.5s ease-in-out forwards;
+}
+
+@keyframes button_hover {
+    from {
+        translate: 0px -5px;
+        opacity: 0;
+    }
+    to {
+        translate: 0px 0px;
+        opacity: 1;
+    }
+}
+
+.calculator button:active {
+    animation: button_press 0.1s linear forwards;
+    animation-iteration-count: 1;
+}
+
+@keyframes button_press {
+    from {
+        translate: 0px 0px;
+        box-shadow: 0px 5px rgba(0, 0, 0, 0.2);
+    }
+    to {
+        translate: 0px 2px;
+        box-shadow: 0px 2px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.navigation {
+    float: right;
+    margin: 0;
+    height: 100%;
+}
+  
+.navigation a {
+    height: 100%;
+    display: table;
+    float: left;
+    padding: 0px 20px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.navigation a button {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#aboutUsBtn {
+    background-color: #4CAF50; /* Cor verde */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#aboutUsBtn:hover {
+    background-color: #45a049; /* Cor mais escura ao passar o mouse */
+}
+
+#aboutUsMessage {
+    display: none; /* Inicialmente escondido */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 2px solid #ccc;
+    padding: 30px;
+    max-width: 80%;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    z-index: 9999; /* Fica por cima da calculadora */
+}
+
+#aboutUsMessage h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#aboutUsMessage p {
+    font-size: 18px;
+    color: #555;
+}
+
+#aboutUsMessage button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#aboutUsMessage button:hover {
+    background-color: #45a049;
+}
+
+
+
+

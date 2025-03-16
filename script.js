@@ -2,23 +2,27 @@ var button, amt, container;
 const labels = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O",
                 "P","Q","R","S","T","U","V","W","X","Y","Z"];
 
-const operators = ["C","⇤","(",")","→","⌃","↔","⌄","¬","⊻","V","F","="];
+const operators = ["C","⇤","(",")","→","⌃","↔","⌄","¬","⊻","v","f","="];
+
+const tooltips = ["Limpar","Apagar","Abrir parenteses","Fechar parenteses","Se, então","E",
+                    "Se somente se","Ou","Não","Ou exclusivo","Verdadeiro","Falso","Gerar resultado"];
 
 const checkbox = document.getElementById("darkcheckbox");
-checkbox.addEventListener("change", function() {
-    if (this.checked) {
-        document.body.classList.add("dark-mode")
-        document.caculator.classList.add("dark-mode")
-    } else {
-        document.body.classList.remove("dark-mode")
-    }
-});
 
 var operation = [];
 
 init();
 
 function init(){
+    checkbox.addEventListener("change", function() {
+        if (this.checked) {
+            document.body.classList.add("dark-mode");
+            document.caculator.classList.add("dark-mode");
+        } else {
+            document.body.classList.remove("dark-mode");
+        }
+    });
+    
     document.querySelector('#elementos').addEventListener('input', (event) => {
         operation = [];
         for(var i = 0; i < event.target.value.length; i++){
@@ -40,6 +44,8 @@ function initLetters(){
         element.innerText = labels[i];
         element.addEventListener("click", () => insertValue(labels[i]));
         container.appendChild(element);
+
+        addTooltip(element, 'Condição ' + labels[i]);
     });
 }
 
@@ -50,12 +56,68 @@ function initOperators(){
         element.innerText = operators[i];
         element.addEventListener("click", () => handleOperator(operators[i]));
         container.appendChild(element);
+
+        addTooltip(element, tooltips[i]);
+
+        if(i == 12){
+            element.classList.add("equals");
+        }
     });
 }
 
+function addTooltip(element, content){
+    var tooltip = document.createElement('span');
+    tooltip.textContent = content;
+    tooltip.classList.add('tooltiptext');
+    element.appendChild(tooltip);
+}
+
 function insertValue(value) {
-    operation.push(value);
-    updateOperation();
+    if(checkAvailability(value)){
+        operation.push(value);
+        updateOperation();
+    }
+}
+
+function checkAvailability(value){
+    if(value === ")"){
+        var counterOpen = 0;
+        var counterClose = 0;
+
+        operation.forEach((char, i) => {
+            if(operation[i] === "("){
+                counterOpen++;
+            } else if(operation[i] === ")"){
+                counterClose++;
+            }
+        });
+
+        if(counterOpen-1 < counterClose){
+            return false;
+        }
+    }
+
+    if(labels.includes(value)){
+        if(labels.includes(operation[operation.length-1])){
+            return false;
+        } else{
+            return true;
+        }
+    }
+
+    if(operators.includes(value)){
+        if(value === "¬"){
+            
+        } else{
+            if(operators.includes(operation[operation.length-1]) && operation[operation.length-1] !== "C" && !(value === "(" || value === ")") && operation[operation.length-1] !== ")"){
+                return false;
+            } else{
+                return true;
+            }
+        }
+    }
+
+    return true;
 }
 
 function handleOperator(op) {
@@ -63,11 +125,15 @@ function handleOperator(op) {
         operation = [];
         updateOperation(); 
     } else if (op === "⇤") {
-        operation.pop(); 
+        operation.pop();
         updateOperation();
     } else if (op === "="){
         gerarTabela();
-    } else {
+    } else if (op === "v"){
+        insertValue("1");
+    } else if(op === "f"){
+        insertValue("0");
+    } else{
         insertValue(op);
     }
 }
@@ -79,8 +145,10 @@ function updateOperation(){
 
 function gerarTabela() {
     const input = document.querySelector("#elementos").value;
-    const letras = [...new Set(input.replace(/[^A-Z]/g, ''))];
+    const letras = [...new Set(input.replace(/[^Condição A-Z]/g, ''))];
     const tabelaDiv = document.querySelector("#tabela");
+
+    const debugMode = false;
 
     
 
@@ -95,7 +163,12 @@ function gerarTabela() {
     letras.forEach(letra => {
         html += `<th>${letra}</th>`;
     });
-    html += `<th>Passo a Passo</th><th>${document.querySelector('#elementos').value}</th></tr></thead><tbody>`;
+
+    if(debugMode){
+        html += `<th>Passo Condição A Passo</th><th>${document.querySelector('#elementos').value}</th></tr></thead><tbody>`;
+    } else{
+        html += `<th>${document.querySelector('#elementos').value}</th></tr></thead><tbody>`;
+    }
 
     for (let i = 0; i < linhas; i++) {
         let valores = {};
@@ -117,6 +190,8 @@ function gerarTabela() {
                                                    .replace(/\⊻/g, '^')
                                                    .replace(/⌄/g, '||')
                                                    .replace(/→/g, '<=')
+                                                   .replace(/1/g, 'true')
+                                                   .replace(/0/g, 'false')
                                                    .replace(/↔/g, '===');
 
         let resultado;
@@ -127,9 +202,28 @@ function gerarTabela() {
         } catch (e) {
             resultado = 'Erro';
         }
-        html += `<td>${passoAPasso}</td><td>${resultado}</td></tr>`;
+
+        if(debugMode){
+            html += `<td>${passoAPasso}</td><td>${resultado}</td></tr>`;
+        } else{
+            html += `<td>${resultado}</td></tr>`;
+        }
     }
 
     html += "</tbody></table>";
     tabelaDiv.innerHTML = html;
+
+    
+    
+
 }
+document.addEventListener('DOMContentLoaded', function () {
+    const aboutUsBtn = document.getElementById('aboutUsBtn');
+    const aboutUsMessage = document.getElementById('aboutUsMessage');
+
+    aboutUsBtn.addEventListener('click', function() {
+       
+        aboutUsMessage.style.display = aboutUsMessage.style.display === 'none' ? 'block' : 'none';
+    });
+});
+
