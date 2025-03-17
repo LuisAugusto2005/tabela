@@ -107,7 +107,9 @@ function checkAvailability(value){
 
     if(operators.includes(value)){
         if(value === "¬"){
-            
+            if(operation[operation.length-1] === "¬" || labels.includes(operation[operation.length-1])){
+                return false;
+            }
         } else{
             if(operators.includes(operation[operation.length-1]) && operation[operation.length-1] !== "C" && !(value === "(" || value === ")") && operation[operation.length-1] !== ")"){
                 return false;
