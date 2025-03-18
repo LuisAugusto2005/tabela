@@ -46,6 +46,17 @@ function initLetters(){
         container.appendChild(element);
 
         addTooltip(element, 'Condição ' + labels[i]);
+
+        switch(i){
+            case 24:
+                element.classList.add('y-condition');
+                break;
+            case 25:
+                element.classList.add('z-condition');
+                break;
+            default:
+                break;
+        }
     });
 }
 
