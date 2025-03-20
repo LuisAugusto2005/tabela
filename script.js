@@ -32,6 +32,16 @@ function init(){
         }
         updateOperation();
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const aboutUsBtn = document.getElementById('aboutUsBtn');
+        const aboutUsMessage = document.getElementById('aboutUsMessage');
+    
+        aboutUsBtn.addEventListener('click', function() {
+           
+            aboutUsMessage.style.display = aboutUsMessage.style.display === 'none' ? 'block' : 'none';
+        });
+    });
     
     initLetters();
     initOperators();
@@ -165,7 +175,8 @@ function gerarTabela() {
 
     const debugMode = false;
 
-    
+    var tautologia = true;
+    var contradicao = true;
 
     if (letras.length === 0) {
         tabelaDiv.innerHTML = "Digite uma expressão válida";
@@ -175,7 +186,7 @@ function gerarTabela() {
     const linhas = Math.pow(2, letras.length);
     let html = "<table border='1'><thead><tr>";
 
-    letras.forEach(letra => {
+    letras.forEach((letra) => {
         html += `<th>${letra}</th>`;
     });
 
@@ -223,7 +234,26 @@ function gerarTabela() {
         } else{
             html += `<td>${resultado}</td></tr>`;
         }
+        
+        if(resultado === 'F'){
+            tautologia = false;
+        } else if (resultado === 'V'){
+            contradicao = false;
+        }
     }
+
+    const tautologiaText = document.querySelector('.tautologia');
+    const footer = document.querySelector('.footer');
+
+    if(tautologia && !contradicao){
+        tautologiaText.innerText = 'A sentenca é uma tautologia';
+    } else if(contradicao && !tautologia){
+        tautologiaText.innerText = 'A sentenca é uma contradição';
+    } else if(!contradicao && !tautologia){
+        tautologiaText.innerText = 'A sentenca é uma contigencia';
+    }
+    tautologiaText.classList.add('tautologiaVisible');
+    footer.classList.add('footerAnimate');
 
     html += "</tbody></table>";
     tabelaDiv.innerHTML = html;
@@ -232,13 +262,4 @@ function gerarTabela() {
     
 
 }
-document.addEventListener('DOMContentLoaded', function () {
-    const aboutUsBtn = document.getElementById('aboutUsBtn');
-    const aboutUsMessage = document.getElementById('aboutUsMessage');
-
-    aboutUsBtn.addEventListener('click', function() {
-       
-        aboutUsMessage.style.display = aboutUsMessage.style.display === 'none' ? 'block' : 'none';
-    });
-});
 

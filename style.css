@@ -211,6 +211,43 @@ button .tooltiptext::after {
     grid-column: 3;
 }
 
+.calculator .tautologia {
+    display: none;
+    width: 100%;
+    font-size: 20px;
+    margin: 10px 0px;
+    padding: 20px 0px;
+    background-color: rgba(176, 176, 204, 0.5);
+    border-radius: 15px;
+    color: black;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    transition: color 0.5s;
+}
+
+.calculator .tautologiaVisible {
+    display: block;
+}
+
+.calculator .footerAnimate {
+    animation: table_slide 0.5s ease-in-out forwards;
+}
+
+@keyframes table_slide {
+    from {
+        translate: 0px -100px;
+        opacity: 0;
+    }
+    to {
+        translate: 0px 0px;
+        opacity: 1;
+    }
+}
+
+.dark-mode .calculator .tautologia {
+    color: white;
+}
+
 #tabela table {
     border: none;
     border-collapse: collapse;
