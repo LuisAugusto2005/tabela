@@ -48,6 +48,7 @@ body {
 
 .darkmodecheckbox {
     color: white;
+    margin-top: 40px;
 }
 
 .calculator {
@@ -165,6 +166,7 @@ button .tooltiptext {
     background-color: rgba(0, 0, 0, 0.8);
     color: #ffffff;
     font-size: 15px;
+    font-weight: normal;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
@@ -332,7 +334,6 @@ button .tooltiptext::after {
     display: table;
     float: left;
     padding: 0px 20px;
-    cursor: pointer;
     transition: background-color 0.15s;
 }
 
@@ -346,6 +347,7 @@ button .tooltiptext::after {
     color: white;
     border: none;
     padding: 10px 20px;
+    margin-top: 30px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -373,6 +375,11 @@ button .tooltiptext::after {
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     z-index: 9999; /* Fica por cima da calculadora */
+}
+
+#aboutUsMessage span {
+    color: blue;
+    text-decoration: underline;
 }
 
 #aboutUsMessage h2 {
