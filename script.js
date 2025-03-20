@@ -4,8 +4,8 @@ const labels = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O",
 
 const operators = ["C","⇤","(",")","→","⌃","↔","⌄","¬","⊻","v","f","="];
 
-const tooltips = ["Limpar","Apagar","Abrir parenteses","Fechar parenteses","Se, então","E",
-                    "Se somente se","Ou","Não","Ou exclusivo","Verdadeiro","Falso","Gerar resultado"];
+const tooltips = ["Clear","Delete","Open parentesis","Close parentesis","If, then","And",
+                    "If and only if (Iff)","Or","Negate","Exclusive Or","True","False","Generate result"];
 
 const checkbox = document.getElementById("darkcheckbox");
 
@@ -55,7 +55,7 @@ function initLetters(){
         element.addEventListener("click", () => insertValue(labels[i]));
         container.appendChild(element);
 
-        addTooltip(element, 'Condição ' + labels[i]);
+        addTooltip(element, 'Condition ' + labels[i]);
 
         switch(i){
             case 24:
