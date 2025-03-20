@@ -70,6 +70,8 @@ function initOperators(){
 
         addTooltip(element, tooltips[i]);
 
+        element.classList.add("operator");
+        
         if(i == 12){
             element.classList.add("equals");
         }

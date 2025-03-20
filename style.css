@@ -190,6 +190,11 @@ button .tooltiptext::after {
     z-index: 999;
 }
 
+.calculator .operator {
+    background-color: hsl(35, 100%, 50%);
+    font-weight: bold;
+}
+
 .calculator .equals {
     background-color: #4CAF50;
     grid-column: span 2;
