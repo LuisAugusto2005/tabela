@@ -377,9 +377,13 @@ button .tooltiptext::after {
     z-index: 9999; /* Fica por cima da calculadora */
 }
 
-#aboutUsMessage span {
+#aboutUsMessage .email {
     color: blue;
     text-decoration: underline;
+}
+
+#aboutUsMessage .contributor {
+    font-weight: bold;
 }
 
 #aboutUsMessage h2 {
